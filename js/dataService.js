@@ -1,6 +1,6 @@
 var app = angular.module('quoteBook');
  
-app.factory('dataService', function() {
+app.factory('dataService', function($filter) {
 
 	var factoryReturn = {};
 
@@ -26,15 +26,17 @@ app.factory('dataService', function() {
 		}
 	};
 
-	factoryReturn.removeData = function(quoteText){
-		console.log(quoteText);
-
-		for (var i = 0; i < quotes.length; i++) {
-			if (selectedQuote == quotes[i].text) {
+	factoryReturn.removeData = function(quote){
+		// we loop through our quotes array
+		for (var i in quotes) {
+			// we find the filtered quote in our quotes array
+			if (quote.text == quotes[i].text) {
+				// we remove the filtered quote from the quotes array
 				quotes.splice(i, 1);
+				// we return the update quotes array
+				return(quotes);
 			}
 		}
-		console.log(quotes);
 	};
 
 	return factoryReturn;

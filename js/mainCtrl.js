@@ -38,17 +38,26 @@ app.controller('mainCtrl', function($scope, $filter, dataService){
 	// ADD QUOTES
 
 	$scope.addQuote = function() {
-		dataService.addData($scope.quote);
+		dataService.addData(quote);
 		$scope.quotes = dataService.getData();
 	    $scope.showAdd = false;
 	};
 
 	//  REMOVE QUOTES
 	$scope.removeQuote = function() {
-		var quote = $filter()(quotes, $scope.quoteText)
-		dataService.removeData(quote);
-		$scope.quotes = dataService.getData();
-	    $scope.showRemove = false;
+		// ng-click on index.html returns an array of filtered quotes
+		var foundQuotes = $filter('filter')($scope.quotes, $scope.quoteText);
+		// first we ensure there is only one quote in the returned array
+		if (foundQuotes.length == 1) {
+			// we call removeData on the only quote
+			// note that we assign the return value to $scope.quotes
+			// this will update the quotes array in the view
+			$scope.quotes = dataService.removeData(foundQuotes[0]);
+			// we reset our quoteText textField
+			$scope.quoteText = '';
+			// we toggle off the Remove Quote div
+		    $scope.showRemove = false;
+		}
 	};
 });
 
