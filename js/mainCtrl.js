@@ -45,7 +45,9 @@ app.controller('mainCtrl', function($scope, $filter, dataService){
 
 	//  REMOVE QUOTES
 	$scope.removeQuote = function() {
-		// ng-click on index.html returns an array of filtered quotes
+		// use the quoteText from index.html to filter down to the desired
+		// text from the quotes list in the $scope.quotes list
+		// and assign the found quotes to the foundQuotes array
 		var foundQuotes = $filter('filter')($scope.quotes, $scope.quoteText);
 		// first we ensure there is only one quote in the returned array
 		if (foundQuotes.length == 1) {
