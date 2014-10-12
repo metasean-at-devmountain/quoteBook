@@ -1,6 +1,6 @@
 var app = angular.module('quoteBook');
  
-app.factory('dataService', function($filter) {
+app.factory('dataService', function() {
 
 	var factoryReturn = {};
 
